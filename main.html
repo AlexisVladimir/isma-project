@@ -6,13 +6,14 @@
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
   </head>
   <body>
-
-
     
-
     <script>
 
-    nuevaposicion=1;
+      nuevaposicion=0;
+      posiciony=0;
+      posicionx=0;
+      posicionz=0;
+
     AFRAME.registerComponent('arbol', {
     init: function() {
     
@@ -95,40 +96,39 @@
   }
 });
 
-    function cambiarPosicionY(){
-
-
+    function cambiarPosicionYmas(){
         let esfera=document.getElementById("esfera");
         let posicionActual = esfera.getAttribute("position");
-        
-
-        esfera.setAttribute("position", {x: posicionActual.x, y: nuevaposicion, z: posicionActual.z});
-     return nuevaposicion+=.5;
-        
+        posiciony+=.5;
+        esfera.setAttribute("position", {x: posicionActual.x, y: posiciony, z: posicionActual.z});
     }
 
-    function cambiarPosicionX(){
-
-
+    function cambiarPosicionYmenos(){
         let esfera=document.getElementById("esfera");
         let posicionActual = esfera.getAttribute("position");
-        
+        posiciony-=.5;
+        esfera.setAttribute("position", {x: posicionActual.x, y: posiciony, z: posicionActual.z});
+    }
 
-        esfera.setAttribute("position", {x: nuevaposicion, y: posicionActual.y, z: posicionActual.z});
-     return nuevaposicion+=.5;
-        
+    function cambiarPosicionXmas(){
+        let esfera=document.getElementById("esfera");
+        let posicionActual = esfera.getAttribute("position");
+        posicionx+=.5;
+        esfera.setAttribute("position", {x: posicionx, y: posicionActual.y, z: posicionActual.z});
+    }
+
+    function cambiarPosicionXmenos(){
+        let esfera=document.getElementById("esfera");
+        let posicionActual = esfera.getAttribute("position");
+        posicionx-=.5;
+        esfera.setAttribute("position", {x: posicionx, y: posicionActual.y, z: posicionActual.z});
     }
 
     function cambiarPosicionZ(){
-
-
         let esfera=document.getElementById("esfera");
         let posicionActual = esfera.getAttribute("position");
-        
-
-        esfera.setAttribute("position", {x: posicionActual.x, y: posicionActual.y, z: nuevaposicion});
-     return nuevaposicion+=.5;
-        
+        posicionz+=.5;
+        esfera.setAttribute("position", {x: posicionActual.x, y: posicionActual.y, z: posicionz});
     }
 
     function cambiarcolor(){
@@ -144,6 +144,11 @@
 </script>
 
     <a-scene>
+
+    <a-entity camera look-controls wasd-controls position="0 1.6 0">
+      <a-cursor color="yellow"></a-cursor>
+      <a-camera></a-camera>
+    </a-entity>
                 <!--    x   y  z                                                                          -->
       <!-- pasaManos` -->
       <a-entity id="pasaManos" position="0 0 -3" rotation="0 0 0">
@@ -473,7 +478,7 @@
       </a-entity>
       <a-plane position="0 0 -4" rotation="-90 0 0" width="15" height="20" color="green"></a-plane>
 
-      <a-sphere position="0 0 0"
+      <a-sphere position="0 0 -2"
             radius=".5"
             color="red"
             id="esfera" 
@@ -481,36 +486,71 @@
             onclick="cambiarcolor()"
             >
         </a-sphere>
-        
-        <a-box position="0 1 0" 
-        rotation="0 0 0" 
-        width="1" 
-        height="1" 
-        depth="1" 
-        color="black"
-        onclick="cambiarPosicionY()"
-        ></a-box>
+        s
+      <a-entity id="flechaxmenos" position="0 2 0"  rotation="0 0 90" >
+        <a-cylinder position="0 0 0" 
+          radius="0.05" 
+          height="2" 
+          color="black">
+        </a-cylinder>
 
-        <a-box position="-1 1 0" 
-        rotation="0 0 0" 
-        width="1" 
-        height="1" 
-        depth="1" 
-        color="black"
-        onclick="cambiarPosicionX()"
-        ></a-box>
+        <a-cone position="0 1.2 0" 
+          radius-bottom="0.15" 
+          radius-top="0" 
+          height="0.4" 
+          color="black"
+          onclick="cambiarPosicionXmenos()">
+        </a-cone>
+      </a-entity> 
+      <a-entity id="flechaxmas" position="0 2 0"  rotation="0 0 270" >
+        <a-cylinder position="0 0 0" 
+          radius="0.05" 
+          height="2" 
+          color="black">
+        </a-cylinder>
 
-        <a-box position="-2 1 0" 
-        rotation="0 0 0" 
-        width="1" 
-        height="1" 
-        depth="1" 
-        color="black"
-        onclick="cambiarPosicionZ()"
-        ></a-box>
+        <a-cone position="0 1.2 0" 
+          radius-bottom="0.15" 
+          radius-top="0" 
+          height="0.4" 
+          color="black"
+          onclick="cambiarPosicionXmas()">
+        </a-cone>
+      </a-entity> 
 
+      <a-entity id="flechaymas" position="0 2 0" rotation="0 0 0" >
+        <a-cylinder position="0 0 0" 
+          radius="0.05" 
+          height="2" 
+          color="black">
+        </a-cylinder>
 
+        <a-cone position="0 1.2 0" 
+          radius-bottom="0.15" 
+          radius-top="0" 
+          height="0.4" 
+          color="black"
+          onclick="cambiarPosicionYmas()">
+        </a-cone>
+      </a-entity>    
+      <a-entity id="flechaymenos" position="0 2 0" rotation="0 0 180" >
+        <a-cylinder position="0 0 0" 
+          radius="0.05" 
+          height="2" 
+          color="black">
+        </a-cylinder>
+
+        <a-cone position="0 1.2 0" 
+          radius-bottom="0.15" 
+          radius-top="0" 
+          height="0.4" 
+          color="black"
+          onclick="cambiarPosicionYmenos()">
+        </a-cone>
+      </a-entity>   
+              
       <a-sky color="turquoise"></a-sky>
+      
     </a-scene>
   </body>
 </html>
